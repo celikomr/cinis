@@ -62,4 +62,36 @@ public static partial class DapperExtensions
         List<T> result = connection.Query<T>(sql, null, transaction).ToList();
         return result;
     }
+
+    public static dynamic Update<T>(this NpgsqlConnection connection, T entity, bool nullable = false, string? whereClause = null, NpgsqlTransaction? transaction = null)
+    {
+        if (connection is null)
+        {
+            throw new ArgumentNullException(nameof(connection));
+        }
+
+        string stringOfSets;
+        if (nullable)
+        {
+            stringOfSets = string.Join(", ", GetProperties<T>().Where(e => e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => $"{e.GetCustomAttribute<ColumnAttribute>().Name} = @{e.Name}"));
+        }
+        else
+        {
+            string[] propertyNames = entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetValue(entity) != null).Select(x => x.GetCustomAttribute<ColumnAttribute>().Name).ToArray();
+            stringOfSets = string.Join(" , ", propertyNames.Select(propertyName => propertyName + " = @" + entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetCustomAttribute<ColumnAttribute>().Name == propertyName).Select(e => e.Name).FirstOrDefault()));
+        }
+
+        string sql;
+        if (!string.IsNullOrEmpty(whereClause))
+        {
+            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {whereClause}";
+        }
+        else
+        {
+            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{GetPrimaryKey<T>()?.Name}";
+        }
+
+        var result = connection.Execute(sql, entity, transaction);
+        return result;
+    }
 }
