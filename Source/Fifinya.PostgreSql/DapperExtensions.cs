@@ -94,4 +94,25 @@ public static partial class DapperExtensions
         var result = connection.Execute(sql, entity, transaction);
         return result;
     }
+
+    public static dynamic Delete<T>(this NpgsqlConnection connection, string? whereClause = null, NpgsqlTransaction? transaction = null)
+    {
+        if (connection is null)
+        {
+            throw new ArgumentNullException(nameof(connection));
+        }
+
+        string sql;
+        if (string.IsNullOrEmpty(whereClause))
+        {
+            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()}";
+        }
+        else
+        {
+            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()} where {whereClause}";
+        }
+
+        var result = connection.Execute(sql, null, transaction);
+        return result;
+    }
 }
