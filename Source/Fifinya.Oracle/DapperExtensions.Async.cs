@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
+using System.Linq;
 
 namespace Fifinya.Oracle;
 
@@ -22,5 +23,26 @@ public static partial class DapperExtensions
 
         var result = await connection.ExecuteAsync(sql, parameters, transaction);
         return parameters.Get<dynamic>("lastcid");
+    }
+
+    public static async Task<List<T>> ReadAsync<T>(this OracleConnection connection, string? whereClause = null, OracleTransaction? transaction = null)
+    {
+        if (connection is null)
+        {
+            throw new ArgumentNullException(nameof(connection));
+        }
+
+        string sql;
+        if (!string.IsNullOrEmpty(whereClause))
+        {
+            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {whereClause}";
+        }
+        else
+        {
+            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()}";
+        }
+
+        var result = await connection.QueryAsync<T>(sql, null, transaction);
+        return result.ToList();
     }
 }
