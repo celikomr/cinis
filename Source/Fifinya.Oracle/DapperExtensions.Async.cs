@@ -1,7 +1,9 @@
 ﻿using Dapper;
 using Oracle.ManagedDataAccess.Client;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 
 namespace Fifinya.Oracle;
 
@@ -44,5 +46,37 @@ public static partial class DapperExtensions
 
         var result = await connection.QueryAsync<T>(sql, null, transaction);
         return result.ToList();
+    }
+
+    public static async Task<dynamic> UpdateAsync<T>(this OracleConnection connection, T entity, bool nullable = false, string? whereClause = null, OracleTransaction? transaction = null)
+    {
+        if (connection is null)
+        {
+            throw new ArgumentNullException(nameof(connection));
+        }
+
+        string stringOfSets;
+        if (nullable)
+        {
+            stringOfSets = string.Join(", ", GetProperties<T>().Where(e => e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => $"{e.GetCustomAttribute<ColumnAttribute>().Name} = :{e.Name}"));
+        }
+        else
+        {
+            string[] propertyNames = entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetValue(entity) != null).Select(x => x.GetCustomAttribute<ColumnAttribute>().Name).ToArray();
+            stringOfSets = string.Join(" , ", propertyNames.Select(propertyName => propertyName + " = :" + entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetCustomAttribute<ColumnAttribute>().Name == propertyName).Select(e => e.Name).FirstOrDefault()));
+        }
+
+        string sql;
+        if (!string.IsNullOrEmpty(whereClause))
+        {
+            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {whereClause}";
+        }
+        else
+        {
+            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = :{GetPrimaryKey<T>()?.Name}";
+        }
+
+        var result = await connection.ExecuteAsync(sql, entity, transaction);
+        return result;
     }
 }
