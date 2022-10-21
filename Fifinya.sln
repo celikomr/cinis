@@ -7,9 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{432D05
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{87BB729C-213F-4E47-BF62-FFC49CAF98AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fifinya.Oracle", "Source\Fifinya.Oracle\Fifinya.Oracle.csproj", "{93B7610D-7127-47EC-956C-478792E9B2EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fifinya.Oracle", "Source\Fifinya.Oracle\Fifinya.Oracle.csproj", "{93B7610D-7127-47EC-956C-478792E9B2EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fifinya.PostgreSql", "Source\Fifinya.PostgreSql\Fifinya.PostgreSql.csproj", "{1058174C-D523-4334-8616-3D6AD7F70BCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fifinya.PostgreSql", "Source\Fifinya.PostgreSql\Fifinya.PostgreSql.csproj", "{1058174C-D523-4334-8616-3D6AD7F70BCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fifinya.MySql", "Source\Fifinya.MySql\Fifinya.MySql.csproj", "{A175628E-C7C1-4260-88B2-0CB03C8D7C96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{1058174C-D523-4334-8616-3D6AD7F70BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1058174C-D523-4334-8616-3D6AD7F70BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1058174C-D523-4334-8616-3D6AD7F70BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A175628E-C7C1-4260-88B2-0CB03C8D7C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A175628E-C7C1-4260-88B2-0CB03C8D7C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A175628E-C7C1-4260-88B2-0CB03C8D7C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A175628E-C7C1-4260-88B2-0CB03C8D7C96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{93B7610D-7127-47EC-956C-478792E9B2EE} = {432D05BC-16EB-424A-A273-14D693039812}
 		{1058174C-D523-4334-8616-3D6AD7F70BCA} = {432D05BC-16EB-424A-A273-14D693039812}
+		{A175628E-C7C1-4260-88B2-0CB03C8D7C96} = {432D05BC-16EB-424A-A273-14D693039812}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C26A372D-7905-4276-86C6-07423A7699BE}
