@@ -2,9 +2,7 @@
 using Oracle.ManagedDataAccess.Client;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Data.Common;
 using System.Reflection;
-using System.Transactions;
 
 namespace Fifinya.Oracle;
 
@@ -56,10 +54,7 @@ public static partial class DapperExtensions
             throw new ArgumentNullException(nameof(connection));
         }
 
-        // Create stringOfSets with entity's not null attribute(s) if nullable is false
         string stringOfSets;
-
-        // Create stringOfSets with entity's all attribute(s) if nullable is true
         if (nullable)
         {
             stringOfSets = string.Join(", ", GetProperties<T>().Where(e => e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => $"{e.GetCustomAttribute<ColumnAttribute>().Name} = :{e.Name}"));
@@ -84,7 +79,7 @@ public static partial class DapperExtensions
         return result;
     }
 
-    public static dynamic Delete<T>(OracleConnection connection, string? whereClause = null, OracleTransaction? transaction = null)
+    public static dynamic Delete<T>(this OracleConnection connection, string? whereClause = null, OracleTransaction? transaction = null)
     {
         if (connection is null)
         {
