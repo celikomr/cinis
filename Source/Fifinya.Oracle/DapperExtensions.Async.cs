@@ -2,7 +2,6 @@
 using Oracle.ManagedDataAccess.Client;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using System.Reflection;
 
 namespace Fifinya.Oracle;
