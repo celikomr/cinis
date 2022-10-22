@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{432D05BC-16EB-424A-A273-14D693039812}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{87BB729C-213F-4E47-BF62-FFC49CAF98AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.MsSql", "Source\Cinis.MsSql\Cinis.MsSql.csproj", "{3458089A-8A6D-4F3D-8D6E-B338CAA2F877}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.MySql", "Source\Cinis.MySql\Cinis.MySql.csproj", "{B9842E48-954C-41B9-9120-12040870DDCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.Oracle", "Source\Cinis.Oracle\Cinis.Oracle.csproj", "{C2049555-D2AC-4C5F-9FE7-B2A44058D256}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.PostgreSql", "Source\Cinis.PostgreSql\Cinis.PostgreSql.csproj", "{D12E7D07-C3F6-4A18-9831-721E89039B3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3458089A-8A6D-4F3D-8D6E-B338CAA2F877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3458089A-8A6D-4F3D-8D6E-B338CAA2F877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3458089A-8A6D-4F3D-8D6E-B338CAA2F877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3458089A-8A6D-4F3D-8D6E-B338CAA2F877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9842E48-954C-41B9-9120-12040870DDCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9842E48-954C-41B9-9120-12040870DDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9842E48-954C-41B9-9120-12040870DDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9842E48-954C-41B9-9120-12040870DDCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2049555-D2AC-4C5F-9FE7-B2A44058D256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2049555-D2AC-4C5F-9FE7-B2A44058D256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2049555-D2AC-4C5F-9FE7-B2A44058D256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2049555-D2AC-4C5F-9FE7-B2A44058D256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D12E7D07-C3F6-4A18-9831-721E89039B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D12E7D07-C3F6-4A18-9831-721E89039B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D12E7D07-C3F6-4A18-9831-721E89039B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D12E7D07-C3F6-4A18-9831-721E89039B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3458089A-8A6D-4F3D-8D6E-B338CAA2F877} = {432D05BC-16EB-424A-A273-14D693039812}
+		{B9842E48-954C-41B9-9120-12040870DDCB} = {432D05BC-16EB-424A-A273-14D693039812}
+		{C2049555-D2AC-4C5F-9FE7-B2A44058D256} = {432D05BC-16EB-424A-A273-14D693039812}
+		{D12E7D07-C3F6-4A18-9831-721E89039B3A} = {432D05BC-16EB-424A-A273-14D693039812}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C26A372D-7905-4276-86C6-07423A7699BE}
+	EndGlobalSection
+EndGlobal

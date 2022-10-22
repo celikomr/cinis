@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using Dapper;
-using Oracle.ManagedDataAccess.Client;
 using System.Data;
+using Npgsql;
+using Dapper;
 
-namespace Fifinya.Oracle;
+namespace Cinis.PostgreSql;
 
 public static partial class DapperExtensions
 {
@@ -27,7 +27,7 @@ public static partial class DapperExtensions
     private static IEnumerable<string> GetColumnPropertyNames<T>()
         => typeof(T).GetProperties().Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => e.Name);
 
-    public static dynamic Create<T>(this OracleConnection connection, T entity, OracleTransaction? transaction = null, DbType dbType = DbType.Int32)
+    public static dynamic Create<T>(this NpgsqlConnection connection, T entity, NpgsqlTransaction? transaction = null, DbType dbType = DbType.Int32)
     {
         if (connection is null)
         {
@@ -35,17 +35,14 @@ public static partial class DapperExtensions
         }
 
         var stringOfColumns = string.Join(", ", GetColumns<T>());
-        var stringOfParameters = string.Join(", ", GetColumnPropertyNames<T>().Select(e => ":" + e));
-        var sql = $"insert into {GetTableSchema<T>()}.{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}) returning {GetPrimaryKey<T>()?.Name} into :lastcid";
+        var stringOfParameters = string.Join(", ", GetColumnPropertyNames<T>().Select(e => "@" + e));
+        var sql = $"insert into {GetTableSchema<T>()}.{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}) returning {GetPrimaryKey<T>()?.Name}";
 
-        DynamicParameters parameters = new(entity);
-        parameters.Add(name: "lastcid", dbType: dbType, direction: ParameterDirection.Output);
-
-        var result = connection.Execute(sql, parameters, transaction);
-        return parameters.Get<dynamic>("lastcid");
+        var result = connection.Execute(sql, entity, transaction);
+        return result;
     }
 
-    public static List<T> Read<T>(this OracleConnection connection, string? whereClause = null, OracleTransaction? transaction = null)
+    public static List<T> Read<T>(this NpgsqlConnection connection, string? whereClause = null, NpgsqlTransaction? transaction = null)
     {
         if (connection is null)
         {
@@ -66,7 +63,7 @@ public static partial class DapperExtensions
         return result;
     }
 
-    public static dynamic Update<T>(this OracleConnection connection, T entity, bool nullable = false, string? whereClause = null, OracleTransaction? transaction = null)
+    public static dynamic Update<T>(this NpgsqlConnection connection, T entity, bool nullable = false, string? whereClause = null, NpgsqlTransaction? transaction = null)
     {
         if (connection is null)
         {
@@ -76,12 +73,12 @@ public static partial class DapperExtensions
         string stringOfSets;
         if (nullable)
         {
-            stringOfSets = string.Join(", ", GetProperties<T>().Where(e => e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => $"{e.GetCustomAttribute<ColumnAttribute>().Name} = :{e.Name}"));
+            stringOfSets = string.Join(", ", GetProperties<T>().Where(e => e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => $"{e.GetCustomAttribute<ColumnAttribute>().Name} = @{e.Name}"));
         }
         else
         {
             string[] propertyNames = entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetValue(entity) != null).Select(x => x.GetCustomAttribute<ColumnAttribute>().Name).ToArray();
-            stringOfSets = string.Join(" , ", propertyNames.Select(propertyName => propertyName + " = :" + entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetCustomAttribute<ColumnAttribute>().Name == propertyName).Select(e => e.Name).FirstOrDefault()));
+            stringOfSets = string.Join(" , ", propertyNames.Select(propertyName => propertyName + " = @" + entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetCustomAttribute<ColumnAttribute>().Name == propertyName).Select(e => e.Name).FirstOrDefault()));
         }
 
         string sql;
@@ -91,14 +88,14 @@ public static partial class DapperExtensions
         }
         else
         {
-            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = :{GetPrimaryKey<T>()?.Name}";
+            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{GetPrimaryKey<T>()?.Name}";
         }
 
         var result = connection.Execute(sql, entity, transaction);
         return result;
     }
 
-    public static dynamic Delete<T>(this OracleConnection connection, string? whereClause = null, OracleTransaction? transaction = null)
+    public static dynamic Delete<T>(this NpgsqlConnection connection, string? whereClause = null, NpgsqlTransaction? transaction = null)
     {
         if (connection is null)
         {
