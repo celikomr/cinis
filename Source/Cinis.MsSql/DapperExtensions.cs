@@ -41,4 +41,25 @@ public static partial class DapperExtensions
         var result = connection.Execute(sql, entity, transaction);
         return result;
     }
+
+    public static List<T> Read<T>(this SqlConnection connection, string? whereClause = null, SqlTransaction? transaction = null)
+    {
+        if (connection is null)
+        {
+            throw new ArgumentNullException(nameof(connection));
+        }
+
+        string sql;
+        if (!string.IsNullOrEmpty(whereClause))
+        {
+            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {whereClause}";
+        }
+        else
+        {
+            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()}";
+        }
+
+        List<T> result = connection.Query<T>(sql, null, transaction).ToList();
+        return result;
+    }
 }
