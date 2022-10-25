@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using MySql.Data.MySqlClient;
+using System.Data;
+using Dapper;
 
 namespace Cinis.MySql;
 
@@ -24,7 +27,7 @@ public static partial class DapperExtensions
     private static IEnumerable<string> GetColumnPropertyNames<T>()
         => typeof(T).GetProperties().Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => e.Name);
     
-    public static dynamic Create<T>(this NpgsqlConnection connection, T entity, NpgsqlTransaction? transaction = null, DbType dbType = DbType.Int32)
+    public static dynamic Create<T>(this MySqlConnection connection, T entity, MySqlTransaction? transaction = null)
     {
         if (connection is null)
         {
