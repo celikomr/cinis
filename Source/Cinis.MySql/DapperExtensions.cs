@@ -23,4 +23,19 @@ public static partial class DapperExtensions
 
     private static IEnumerable<string> GetColumnPropertyNames<T>()
         => typeof(T).GetProperties().Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => e.Name);
+    
+    public static dynamic Create<T>(this NpgsqlConnection connection, T entity, NpgsqlTransaction? transaction = null, DbType dbType = DbType.Int32)
+    {
+        if (connection is null)
+        {
+            throw new ArgumentNullException(nameof(connection));
+        }
+
+        var stringOfColumns = string.Join(", ", GetColumns<T>());
+        var stringOfParameters = string.Join(", ", GetColumnPropertyNames<T>().Select(e => "@" + e));
+        var sql = $"insert into {GetTableSchema<T>()}.{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}) returning {GetPrimaryKey<T>()?.Name}";
+
+        var result = connection.Execute(sql, entity, transaction);
+        return result;
+    }
 }
