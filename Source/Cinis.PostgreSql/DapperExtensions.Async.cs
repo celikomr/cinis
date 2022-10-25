@@ -8,7 +8,7 @@ namespace Cinis.PostgreSql;
 
 public static partial class DapperExtensions
 {
-    public static async Task<dynamic> CreateAsync<T>(this NpgsqlConnection connection, T entity, NpgsqlTransaction? transaction = null, DbType dbType = DbType.Int32)
+    public static async Task<dynamic> CreateAsync<T>(this NpgsqlConnection connection, T entity, NpgsqlTransaction? transaction = null)
     {
         if (connection is null)
         {
