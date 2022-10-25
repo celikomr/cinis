@@ -27,7 +27,7 @@ public static partial class DapperExtensions
     private static IEnumerable<string> GetColumnPropertyNames<T>()
         => typeof(T).GetProperties().Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => e.Name);
 
-    public static dynamic Create<T>(this SqlConnection connection, T entity, SqlTransaction? transaction = null, DbType dbType = DbType.Int32)
+    public static dynamic Create<T>(this SqlConnection connection, T entity, SqlTransaction? transaction = null)
     {
         if (connection is null)
         {

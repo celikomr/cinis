@@ -8,7 +8,7 @@ namespace Cinis.MsSql;
 
 public static partial class DapperExtensions
 {
-    public static async Task<dynamic> CreateAsync<T>(this SqlConnection connection, T entity, SqlTransaction? transaction = null, DbType dbType = DbType.Int32)
+    public static async Task<dynamic> CreateAsync<T>(this SqlConnection connection, T entity, SqlTransaction? transaction = null)
     {
         if (connection is null)
         {
