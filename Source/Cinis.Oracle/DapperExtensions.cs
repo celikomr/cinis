@@ -4,6 +4,7 @@ using System.Reflection;
 using Dapper;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace Cinis.Oracle;
 
@@ -51,7 +52,7 @@ public static partial class DapperExtensions
         return parameters.Get<dynamic>("lastcid");
     }
 
-    public static List<T> Read<T>(this OracleConnection connection, string? whereClause = null, OracleTransaction? transaction = null)
+    public static List<T> Read<T>(this OracleConnection connection, [Optional] dynamic id, [Optional] string whereClause, OracleTransaction? transaction = null)
     {
         if (connection is null)
         {
@@ -59,7 +60,11 @@ public static partial class DapperExtensions
         }
 
         string sql;
-        if (!string.IsNullOrEmpty(whereClause))
+        if (id != null)
+        {
+            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = :{GetPrimaryKey<T>()?.Name}";
+        }
+        else if (!string.IsNullOrEmpty(whereClause))
         {
             sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {whereClause}";
         }
@@ -88,7 +93,7 @@ public static partial class DapperExtensions
         {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
-            string[] propertyNames = entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetValue(entity) != null).Select(x => x.GetCustomAttribute<ColumnAttribute>().Name).ToArray();
+            string[] propertyNames = entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetValue(entity) != null).Select(x => x?.GetCustomAttribute<ColumnAttribute>()?.Name).ToArray();
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             stringOfSets = string.Join(" , ", propertyNames.Select(propertyName => propertyName + " = :" + entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x?.GetCustomAttribute<ColumnAttribute>()?.Name == propertyName).Select(e => e.Name).FirstOrDefault()));
