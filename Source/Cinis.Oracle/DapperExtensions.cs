@@ -4,7 +4,6 @@ using System.Reflection;
 using Dapper;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
-using System.Runtime.InteropServices;
 
 namespace Cinis.Oracle;
 
@@ -52,7 +51,7 @@ public static partial class DapperExtensions
         return parameters.Get<dynamic>("lastcid");
     }
 
-    public static List<T> Read<T>(this OracleConnection connection, [Optional] dynamic id, [Optional] string whereClause, OracleTransaction? transaction = null)
+    public static List<T> Read<T>(this OracleConnection connection, dynamic? id = null, string? whereClause = null, OracleTransaction? transaction = null)
     {
         if (connection is null)
         {
