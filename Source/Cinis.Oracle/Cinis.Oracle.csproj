@@ -4,6 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.0.0-beta.1</Version>
+    <Description>Dapper(Oracle) extensions for .Net projects</Description>
+    <RepositoryUrl>https://github.com/RepomineLabs/Cinis</RepositoryUrl>
+    <PackageTags>dapper-extensions-dotnet</PackageTags>
+    <PackAsTool>True</PackAsTool>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
