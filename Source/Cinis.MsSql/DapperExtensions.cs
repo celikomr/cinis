@@ -10,22 +10,34 @@ namespace Cinis.MsSql;
 public static partial class DapperExtensions
 {
     private static string GetTableName<T>()
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         => typeof(T).GetCustomAttribute<TableAttribute>().Name;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
     private static string GetTableSchema<T>()
+#pragma warning disable CS8603 // Possible null reference return.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         => typeof(T).GetCustomAttribute<TableAttribute>().Schema;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8603 // Possible null reference return.
 
     private static IEnumerable<PropertyInfo> GetProperties<T>()
         => typeof(T).GetProperties();
 
     private static PropertyInfo? GetPrimaryKey<T>()
-        => typeof(T).GetProperties().Where(x => x.GetCustomAttributes().Any(y => y.GetType() == typeof(KeyAttribute))).FirstOrDefault();
+        => typeof(T).GetProperties()
+                    .Where(x => x.GetCustomAttributes().Any(y => y.GetType() == typeof(KeyAttribute)))
+                    .FirstOrDefault();
 
     private static IEnumerable<string?> GetColumns<T>()
-        => typeof(T).GetProperties().Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => e.GetCustomAttribute<ColumnAttribute>()?.Name);
+        => typeof(T).GetProperties()
+                    .Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null)
+                    .Select(e => e.GetCustomAttribute<ColumnAttribute>()?.Name);
 
     private static IEnumerable<string> GetColumnPropertyNames<T>()
-        => typeof(T).GetProperties().Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => e.Name);
+        => typeof(T).GetProperties()
+                    .Where(e => e.Name != GetPrimaryKey<T>()?.Name && e.GetCustomAttribute<ColumnAttribute>() != null)
+                    .Select(e => e.Name);
 
     public static dynamic Create<T>(this SqlConnection connection, T entity, SqlTransaction? transaction = null)
     {
