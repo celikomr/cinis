@@ -1,4 +1,9 @@
-﻿namespace Cinis.MySql;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
+
+namespace Cinis.MySql;
 
 public static partial class DapperExtensions
 {
