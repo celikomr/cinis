@@ -67,7 +67,7 @@ public static partial class DapperExtensions
         string sql;
         if (id != null)
         {
-            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = :{GetPrimaryKey<T>()?.Name}";
+            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
         }
         else if (!string.IsNullOrEmpty(whereClause))
         {
