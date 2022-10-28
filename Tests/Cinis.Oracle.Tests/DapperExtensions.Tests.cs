@@ -1,5 +1,4 @@
-﻿using Cinis.Oracle.Tests.Models;
-using Oracle.ManagedDataAccess.Client;
+﻿using Oracle.ManagedDataAccess.Client;
 
 namespace Cinis.Oracle.Tests;
 

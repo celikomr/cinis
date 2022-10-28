@@ -21,4 +21,21 @@ public class Comment
 
     [Column("body")]
     public string? Body { get; set; }
+
+    public Comment(int postId, string? name, string? email, string? body)
+    {
+        PostId = postId;
+        Name = name;
+        Email = email;
+        Body = body;
+    }
+
+    public Comment(int id, int postId, string? name, string? email, string? body)
+    {
+        Id = id;
+        PostId = postId;
+        Name = name;
+        Email = email;
+        Body = body;
+    }
 }

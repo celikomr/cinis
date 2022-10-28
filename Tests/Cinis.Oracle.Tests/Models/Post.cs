@@ -17,4 +17,17 @@ public class Post
     public string? Body { get; set; }
 
     public List<Comment>? Comments { get; set; }
+
+    public Post(string? title, string? body)
+    {
+        Title = title;
+        Body = body;
+    }
+
+    public Post(int id, string? title, string? body)
+    {
+        Id = id;
+        Title = title;
+        Body = body;
+    }
 }
