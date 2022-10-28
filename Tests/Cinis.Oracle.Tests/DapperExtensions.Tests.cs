@@ -5,11 +5,17 @@ namespace Cinis.Oracle.Tests;
 
 public partial class DapperExtensions
 {
+    public string ConnectionString { get; set; }
+
+    public DapperExtensions()
+    {
+        ConnectionString = "";
+    }
+
     [Fact]
     public void Create_WithoutTransaction()
     {
-        string connStr = "";
-        using var connection = new OracleConnection(connStr);
+        using var connection = new OracleConnection(ConnectionString);
         connection.Open();
         try
         {
@@ -25,8 +31,7 @@ public partial class DapperExtensions
     [Fact]
     public void Create_WithTransaction()
     {
-        string connStr = "";
-        using var connection = new OracleConnection(connStr);
+        using var connection = new OracleConnection(ConnectionString);
         connection.Open();
         using OracleTransaction transaction = connection.BeginTransaction();
         try
@@ -48,8 +53,7 @@ public partial class DapperExtensions
     [Fact]
     public void Read_ById()
     {
-        string connStr = "";
-        using var connection = new OracleConnection(connStr);
+        using var connection = new OracleConnection(ConnectionString);
         connection.Open();
         try
         {
@@ -60,6 +64,27 @@ public partial class DapperExtensions
             }
             Assert.NotNull(post);
             Assert.NotNull(post?.Comments);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
+
+    [Fact]
+    public void Read_ByWhereClause()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            List<Post> posts = connection.Read<Post>(whereClause: $"title like %Test name%");
+            foreach (Post post in posts)
+            {
+                post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'");
+            }
+            Assert.NotNull(posts);
         }
         catch (Exception ex)
         {
