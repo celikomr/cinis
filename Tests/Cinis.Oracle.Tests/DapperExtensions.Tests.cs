@@ -44,4 +44,27 @@ public partial class DapperExtensions
             throw;
         }
     }
+
+    [Fact]
+    public void Read_ById()
+    {
+        string connStr = "";
+        using var connection = new OracleConnection(connStr);
+        connection.Open();
+        try
+        {
+            Post? post = connection.Read<Post>(1000000000).FirstOrDefault();
+            if (post != null)
+            {
+                post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'");
+            }
+            Assert.NotNull(post);
+            Assert.NotNull(post?.Comments);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }
