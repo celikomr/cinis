@@ -9,7 +9,7 @@ public partial class DapperExtensions
 
     public DapperExtensions()
     {
-        ConnectionString = "";
+        ConnectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) (CONNECT_DATA =(SERVICE_NAME = xe) (SERVER = DEDICATED) ) ); User ID = OCLK; Password = OCLK;";
     }
 
     [Fact]

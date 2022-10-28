@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinis.Oracle.Tests.Models;
 
-[Table("'comment'", Schema = "oclk")]
+[Table("\"comment\"", Schema = "oclk")]
 public class Comment
 {
     [Key]
