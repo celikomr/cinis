@@ -23,7 +23,7 @@ public static partial class DapperExtensions
         return result;
     }
 
-    public static async Task<List<T>> ReadAsync<T>(this SqlConnection connection, dynamic? id = null, string ? whereClause = null, SqlTransaction? transaction = null)
+    public static async Task<List<T>> ReadAsync<T>(this SqlConnection connection, dynamic? id = null, string? whereClause = null, SqlTransaction? transaction = null)
     {
         if (connection is null)
         {
@@ -33,7 +33,7 @@ public static partial class DapperExtensions
         string sql;
         if (id != null)
         {
-            sql = $"select * from {GetTableSchema<T>()}{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{GetPrimaryKey<T>()?.Name}";
+            sql = $"select * from {GetTableSchema<T>()}{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = {id}";
         }
         else if (!string.IsNullOrEmpty(whereClause))
         {
@@ -44,7 +44,7 @@ public static partial class DapperExtensions
             sql = $"select * from {GetTableSchema<T>()}{GetTableName<T>()}";
         }
 
-        var result = await connection.QueryAsync<T>(sql, null, transaction);
+        var result = await connection.QueryAsync<T>(sql, transaction: transaction);
         return result.ToList();
     }
 
@@ -86,7 +86,7 @@ public static partial class DapperExtensions
         return result;
     }
 
-    public static async Task<dynamic> DeleteAsync<T>(this SqlConnection connection, string? whereClause = null, SqlTransaction? transaction = null)
+    public static async Task<dynamic> DeleteAsync<T>(this SqlConnection connection, dynamic? id = null, string? whereClause = null, SqlTransaction? transaction = null)
     {
         if (connection is null)
         {
@@ -94,16 +94,20 @@ public static partial class DapperExtensions
         }
 
         string sql;
-        if (string.IsNullOrEmpty(whereClause))
+        if (id != null)
         {
-            sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()}";
+            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
         }
-        else
+        else if (!string.IsNullOrEmpty(whereClause))
         {
             sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()} where {whereClause}";
         }
+        else
+        {
+            sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()}";
+        }
 
-        var result = await connection.ExecuteAsync(sql, null, transaction);
+        var result = await connection.ExecuteAsync(sql, transaction: transaction);
         return result;
     }
 }
