@@ -86,4 +86,26 @@ public partial class DapperExtensions
             throw;
         }
     }
+
+    [Fact]
+    public async Task UpdateAsync_ById()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            var posts = await connection.ReadAsync<Post>(1000001541);
+            Post? post = posts.FirstOrDefault();
+            if (post != null)
+            {
+                post.Title = "Updated Test Title";
+                await connection.UpdateAsync(post); // Update By Id
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }

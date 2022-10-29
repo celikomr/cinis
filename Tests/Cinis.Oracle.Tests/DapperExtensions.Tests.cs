@@ -106,8 +106,6 @@ public partial class DapperExtensions
                 post.Title = "Updated Test Title";
                 connection.Update(post); // Update By Id
             }
-            Assert.NotNull(post);
-            Assert.NotNull(post?.Comments);
         }
         catch (Exception ex)
         {
@@ -127,10 +125,9 @@ public partial class DapperExtensions
             if (post != null)
             {
                 post.Title = "Updated Test Title";
+                post.Body = null;
                 connection.Update(post, true, $"ID = '{post.Id}'"); // Update By WhereClause
             }
-            Assert.NotNull(post);
-            Assert.NotNull(post?.Comments);
         }
         catch (Exception ex)
         {
