@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.MySql.Tests", "Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinis.PostgreSql.Tests", "Tests\Cinis.PostgreSql.Tests\Cinis.PostgreSql.Tests.csproj", "{A7EBF896-68CF-42EB-9BA2-BB8A5A30F0BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinis.MsSql.Tests", "Tests\Cinis.MsSql.Tests\Cinis.MsSql.Tests.csproj", "{2FE35A29-10DC-4A57-9B9F-7AC317285326}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{A7EBF896-68CF-42EB-9BA2-BB8A5A30F0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7EBF896-68CF-42EB-9BA2-BB8A5A30F0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7EBF896-68CF-42EB-9BA2-BB8A5A30F0BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FE35A29-10DC-4A57-9B9F-7AC317285326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FE35A29-10DC-4A57-9B9F-7AC317285326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FE35A29-10DC-4A57-9B9F-7AC317285326}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FE35A29-10DC-4A57-9B9F-7AC317285326}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{92813A54-CB83-4021-A097-88B4CFB7BD5F} = {87BB729C-213F-4E47-BF62-FFC49CAF98AE}
 		{7EEE765B-879E-4506-B601-B4259DCDC51A} = {87BB729C-213F-4E47-BF62-FFC49CAF98AE}
 		{A7EBF896-68CF-42EB-9BA2-BB8A5A30F0BF} = {87BB729C-213F-4E47-BF62-FFC49CAF98AE}
+		{2FE35A29-10DC-4A57-9B9F-7AC317285326} = {87BB729C-213F-4E47-BF62-FFC49CAF98AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C26A372D-7905-4276-86C6-07423A7699BE}
