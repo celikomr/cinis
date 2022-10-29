@@ -3,17 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinis.MySql.Tests.Models;
 
-[Table("POST", Schema = "OCLK")]
+[Table("post", Schema = "mydb")]
 public class Post
 {
     [Key]
-    [Column("ID")]
+    [Column("id")]
     public int Id { get; set; }
 
-    [Column("TITLE")]
+    [Column("title")]
     public string? Title { get; set; }
 
-    [Column("BODY")]
+    [Column("body")]
     public string? Body { get; set; }
 
     public List<Comment>? Comments { get; set; }

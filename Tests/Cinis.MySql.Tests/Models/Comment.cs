@@ -3,23 +3,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinis.MySql.Tests.Models;
 
-[Table("\"COMMENT\"", Schema = "oclk")]
+[Table("comment", Schema = "mydb")]
 public class Comment
 {
     [Key]
-    [Column("ID")]
+    [Column("id")]
     public int Id { get; set; }
 
-    [Column("POST_ID")]
+    [Column("post_id")]
     public int PostId { get; set; }
 
-    [Column("NAME")]
+    [Column("name")]
     public string? Name { get; set; }
 
-    [Column("EMAIL")]
+    [Column("email")]
     public string? Email { get; set; }
 
-    [Column("BODY")]
+    [Column("body")]
     public string? Body { get; set; }
 
     public Comment() { }
