@@ -14,12 +14,11 @@ public static partial class DapperExtensions
         => typeof(T).GetCustomAttribute<TableAttribute>().Name;
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
-    private static string GetTableSchema<T>()
-#pragma warning disable CS8603 // Possible null reference return.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-        => typeof(T).GetCustomAttribute<TableAttribute>().Schema;
+    private static string GetTableSchema<T>() => typeof(T).GetCustomAttribute<TableAttribute>().Schema == null
+            ? ""
+            : typeof(T).GetCustomAttribute<TableAttribute>().Schema + ".";
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore CS8603 // Possible null reference return.
 
     private static IEnumerable<PropertyInfo> GetProperties<T>()
         => typeof(T).GetProperties();
