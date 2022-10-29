@@ -3,24 +3,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinis.Oracle.Tests.Models;
 
-[Table("\"comment\"", Schema = "oclk")]
+[Table("\"COMMENT\"", Schema = "oclk")]
 public class Comment
 {
     [Key]
-    [Column("id")]
+    [Column("ID")]
     public int Id { get; set; }
 
-    [Column("post_id")]
+    [Column("POST_ID")]
     public int PostId { get; set; }
 
-    [Column("name")]
+    [Column("NAME")]
     public string? Name { get; set; }
 
-    [Column("email")]
+    [Column("EMAIL")]
     public string? Email { get; set; }
 
-    [Column("body")]
+    [Column("BODY")]
     public string? Body { get; set; }
+
+    public Comment() { }
 
     public Comment(int postId, string? name, string? email, string? body)
     {

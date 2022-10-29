@@ -47,7 +47,7 @@ public static partial class DapperExtensions
             sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()}";
         }
 
-        var result = await connection.QueryAsync<T>(sql, null, transaction);
+        var result = await connection.QueryAsync<T>(sql, transaction: transaction);
         return result.ToList();
     }
 

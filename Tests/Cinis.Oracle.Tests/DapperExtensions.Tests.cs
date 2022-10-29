@@ -57,7 +57,7 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            Post? post = connection.Read<Post>(1000000000).FirstOrDefault();
+            Post? post = connection.Read<Post>(1000001541).FirstOrDefault();
             if (post != null)
             {
                 post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'");
@@ -79,7 +79,7 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            List<Post> posts = connection.Read<Post>(whereClause: $"title like %Test name%");
+            List<Post> posts = connection.Read<Post>(whereClause: $"TITLE LIKE '%Test title%'");
             foreach (Post post in posts)
             {
                 post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'");

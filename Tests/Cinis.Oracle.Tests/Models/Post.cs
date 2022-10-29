@@ -3,20 +3,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinis.Oracle.Tests.Models;
 
-[Table("post", Schema = "oclk")]
+[Table("POST", Schema = "OCLK")]
 public class Post
 {
     [Key]
-    [Column("id")]
+    [Column("ID")]
     public int Id { get; set; }
 
-    [Column("title")]
+    [Column("TITLE")]
     public string? Title { get; set; }
 
-    [Column("body")]
+    [Column("BODY")]
     public string? Body { get; set; }
 
     public List<Comment>? Comments { get; set; }
+
+    public Post() { }
 
     public Post(string? title, string? body)
     {

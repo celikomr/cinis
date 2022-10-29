@@ -78,7 +78,7 @@ public static partial class DapperExtensions
             sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()}";
         }
 
-        List<T> result = connection.Query<T>(sql, null, transaction).ToList();
+        List<T> result = connection.Query<T>(sql, transaction: transaction).ToList();
         return result;
     }
 
