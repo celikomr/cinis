@@ -92,4 +92,27 @@ public partial class DapperExtensions
             throw;
         }
     }
+
+    [Fact]
+    public void Update_ById()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            Post? post = connection.Read<Post>(1000001541).FirstOrDefault();
+            if (post != null)
+            {
+                post.Title = "Updated Test Title";
+                connection.Update(post); // Update By Id
+            }
+            Assert.NotNull(post);
+            Assert.NotNull(post?.Comments);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }
