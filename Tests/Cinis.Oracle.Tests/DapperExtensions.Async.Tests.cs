@@ -65,4 +65,25 @@ public partial class DapperExtensions
             throw;
         }
     }
+
+    [Fact]
+    public async Task ReadAsync_ByWhereClause()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            List<Post> posts = await connection.ReadAsync<Post>(whereClause: $"TITLE LIKE '%Test title%'");
+            foreach (Post post in posts)
+            {
+                post.Comments = await connection.ReadAsync<Comment>(whereClause: $"POST_ID = '{post.Id}'");
+            }
+            Assert.NotNull(posts);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }
