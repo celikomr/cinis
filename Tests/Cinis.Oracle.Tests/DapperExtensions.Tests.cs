@@ -143,11 +143,23 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            Post? post = connection.Read<Post>(1000001633).FirstOrDefault();
-            if (post != null)
-            {
-                connection.Delete(post);
-            }
+            connection.Delete<Post>(1000001633); // dynamic id = '1000001633'
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
+
+    [Fact]
+    public void Delete_ByWhereClause()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            connection.Delete<Post>(whereClause: "ID = '1000001628'"); // dynamic id = '1000001633'
         }
         catch (Exception ex)
         {
