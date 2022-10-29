@@ -48,7 +48,7 @@ public static partial class DapperExtensions
 
         var stringOfColumns = string.Join(", ", GetColumns<T>());
         var stringOfParameters = string.Join(", ", GetColumnPropertyNames<T>().Select(e => "@" + e));
-        var sql = $"insert into {GetTableSchema<T>()}.{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}); select LAST_INSERT_ID();";
+        var sql = $"insert into {GetTableSchema<T>()}{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}); select LAST_INSERT_ID();";
 
         var result = connection.Execute(sql, entity, transaction);
         return result;
@@ -64,15 +64,15 @@ public static partial class DapperExtensions
         string sql;
         if (id != null)
         {
-            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
+            sql = $"select * from {GetTableSchema<T>()}{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
         }
         else if (!string.IsNullOrEmpty(whereClause))
         {
-            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()} where {whereClause}";
+            sql = $"select * from {GetTableSchema<T>()}{GetTableName<T>()} where {whereClause}";
         }
         else
         {
-            sql = $"select * from {GetTableSchema<T>()}.{GetTableName<T>()}";
+            sql = $"select * from {GetTableSchema<T>()}{GetTableName<T>()}";
         }
 
         List<T> result = connection.Query<T>(sql, transaction: transaction).ToList();
@@ -106,11 +106,11 @@ public static partial class DapperExtensions
         string sql;
         if (!string.IsNullOrEmpty(whereClause))
         {
-            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {whereClause}";
+            sql = $"update {GetTableSchema<T>()}{GetTableName<T>()} set {stringOfSets} where {whereClause}";
         }
         else
         {
-            sql = $"update {GetTableSchema<T>()}.{GetTableName<T>()} set {stringOfSets} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{GetPrimaryKey<T>()?.Name}";
+            sql = $"update {GetTableSchema<T>()}{GetTableName<T>()} set {stringOfSets} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{GetPrimaryKey<T>()?.Name}";
         }
 
         var result = connection.Execute(sql, entity, transaction);
@@ -127,15 +127,15 @@ public static partial class DapperExtensions
         string sql;
         if (id != null)
         {
-            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
+            sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
         }
         else if (!string.IsNullOrEmpty(whereClause))
         {
-            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()} where {whereClause}";
+            sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()} where {whereClause}";
         }
         else
         {
-            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()}";
+            sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()}";
         }
 
         var result = connection.Execute(sql, transaction: transaction);

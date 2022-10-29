@@ -9,7 +9,7 @@ public partial class DapperExtensions
 
     public DapperExtensions()
     {
-        ConnectionString = "Server=localhost;User ID=root;Password=root;Database=mydb";
+        ConnectionString = "Host=localhost; Database=mydb; Username=postgres; Password=postgres";
     }
 
     [Fact]
