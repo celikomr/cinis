@@ -100,7 +100,7 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            Post? post = connection.Read<Post>(1000001541).FirstOrDefault();
+            Post? post = connection.Read<Post>(1000001556).FirstOrDefault();
             if (post != null)
             {
                 post.Title = "Updated Test Title";
@@ -121,7 +121,7 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            Post? post = connection.Read<Post>(1000001541).FirstOrDefault();
+            Post? post = connection.Read<Post>(1000001561).FirstOrDefault();
             if (post != null)
             {
                 post.Title = "Updated Test Title";

@@ -94,12 +94,35 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            var posts = await connection.ReadAsync<Post>(1000001541);
+            var posts = await connection.ReadAsync<Post>(1000001591);
             Post? post = posts.FirstOrDefault();
             if (post != null)
             {
                 post.Title = "Updated Test Title";
                 await connection.UpdateAsync(post); // Update By Id
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ByWhereClause()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            var posts = await connection.ReadAsync<Post>(1000001600);
+            Post? post = posts.FirstOrDefault();
+            if (post != null)
+            {
+                post.Title = "Updated Test Title";
+                post.Body = null;
+                await connection.UpdateAsync(post, true, $"ID = '{post.Id}'"); // Update By WhereClause
             }
         }
         catch (Exception ex)
