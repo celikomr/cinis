@@ -9,7 +9,7 @@ public partial class DapperExtensions
     public async Task CreateAsync_WithoutTransaction()
     {
         using var connection = new OracleConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
             int postId = await connection.CreateAsync(new Post("Test title - 1", "Test body - 1"));
@@ -25,7 +25,7 @@ public partial class DapperExtensions
     public async Task CreateAsync_WithTransaction()
     {
         using var connection = new OracleConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         using OracleTransaction transaction = connection.BeginTransaction();
         try
         {
@@ -47,7 +47,7 @@ public partial class DapperExtensions
     public async Task ReadAsync_ById()
     {
         using var connection = new OracleConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
             var posts = await connection.ReadAsync<Post>(1000001541);
@@ -70,7 +70,7 @@ public partial class DapperExtensions
     public async Task ReadAsync_ByWhereClause()
     {
         using var connection = new OracleConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
             List<Post> posts = await connection.ReadAsync<Post>(whereClause: $"TITLE LIKE '%Test title%'");
@@ -91,7 +91,7 @@ public partial class DapperExtensions
     public async Task UpdateAsync_ById()
     {
         using var connection = new OracleConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
             var posts = await connection.ReadAsync<Post>(1000001591);
@@ -124,6 +124,38 @@ public partial class DapperExtensions
                 post.Body = null;
                 await connection.UpdateAsync(post, true, $"ID = '{post.Id}'"); // Update By WhereClause
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
+
+    [Fact]
+    public async void DeleteAsync_ById()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        await connection.OpenAsync();
+        try
+        {
+            await connection.DeleteAsync<Post>(1000001570); // dynamic id = '1000001633'
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ByWhereClause()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        await connection.OpenAsync();
+        try
+        {
+            await connection.DeleteAsync<Post>(whereClause: "ID = '1000001580'"); // Delete By WhereClause
         }
         catch (Exception ex)
         {

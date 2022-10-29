@@ -159,7 +159,7 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            connection.Delete<Post>(whereClause: "ID = '1000001628'"); // dynamic id = '1000001633'
+            connection.Delete<Post>(whereClause: "ID = '1000001628'"); // Delete By WhereClause
         }
         catch (Exception ex)
         {
