@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinis.PostgreSql.Tests.Models;
 
-[Table("comment", Schema = "mydb")]
+[Table("comment")]
 public class Comment
 {
     [Key]
