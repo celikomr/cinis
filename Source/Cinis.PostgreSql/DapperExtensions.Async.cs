@@ -98,7 +98,7 @@ public static partial class DapperExtensions
         {
             sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
         }
-        else if (string.IsNullOrEmpty(whereClause))
+        else if (!string.IsNullOrEmpty(whereClause))
         {
             sql = $"delete from {GetTableSchema<T>()}{GetTableName<T>()} where {whereClause}";
         }
