@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.Oracle", "Source\Cini
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.PostgreSql", "Source\Cinis.PostgreSql\Cinis.PostgreSql.csproj", "{D12E7D07-C3F6-4A18-9831-721E89039B3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinis.Oracle.Tests", "Tests\Cinis.Oracle.Tests\Cinis.Oracle.Tests.csproj", "{92813A54-CB83-4021-A097-88B4CFB7BD5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinis.Oracle.Tests", "Tests\Cinis.Oracle.Tests\Cinis.Oracle.Tests.csproj", "{92813A54-CB83-4021-A097-88B4CFB7BD5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinis.MySql.Tests", "Tests\Cinis.MySql.Tests\Cinis.MySql.Tests.csproj", "{7EEE765B-879E-4506-B601-B4259DCDC51A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{92813A54-CB83-4021-A097-88B4CFB7BD5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92813A54-CB83-4021-A097-88B4CFB7BD5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92813A54-CB83-4021-A097-88B4CFB7BD5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EEE765B-879E-4506-B601-B4259DCDC51A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EEE765B-879E-4506-B601-B4259DCDC51A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EEE765B-879E-4506-B601-B4259DCDC51A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EEE765B-879E-4506-B601-B4259DCDC51A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{C2049555-D2AC-4C5F-9FE7-B2A44058D256} = {432D05BC-16EB-424A-A273-14D693039812}
 		{D12E7D07-C3F6-4A18-9831-721E89039B3A} = {432D05BC-16EB-424A-A273-14D693039812}
 		{92813A54-CB83-4021-A097-88B4CFB7BD5F} = {87BB729C-213F-4E47-BF62-FFC49CAF98AE}
+		{7EEE765B-879E-4506-B601-B4259DCDC51A} = {87BB729C-213F-4E47-BF62-FFC49CAF98AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C26A372D-7905-4276-86C6-07423A7699BE}
