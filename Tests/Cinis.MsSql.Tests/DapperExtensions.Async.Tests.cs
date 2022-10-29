@@ -5,21 +5,14 @@ namespace Cinis.MsSql.Tests;
 
 public partial class DapperExtensions
 {
-    public string ConnectionString { get; set; }
-
-    public DapperExtensions()
-    {
-        ConnectionString = "Server=localhost;Database=mydb;User Id=sa;Password=Abc1234*";
-    }
-
     [Fact]
-    public void Create_WithoutTransaction()
+    public async Task CreateAsync_WithoutTransaction()
     {
         using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
-            int postId = connection.Create(new Post("Test title - 1", "Test body - 1"));
+            int postId = await connection.CreateAsync(new Post("Test title - 1", "Test body - 1"));
         }
         catch (Exception ex)
         {
@@ -29,17 +22,17 @@ public partial class DapperExtensions
     }
 
     [Fact]
-    public void Create_WithTransaction()
+    public async Task CreateAsync_WithTransaction()
     {
         using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         using SqlTransaction transaction = connection.BeginTransaction();
         try
         {
-            int postId = connection.Create(new Post("Test title - 1", "Test body - 1"), transaction);
-            connection.Create(new Comment(postId, "Test name - 1", "Test email - 1", "Test body - 1"), transaction);
-            connection.Create(new Comment(postId, "Test name - 2", "Test email - 2", "Test body - 2"), transaction);
-            connection.Create(new Comment(postId, "Test name - 3", "Test email - 3", "Test body - 3"), transaction);
+            int postId = await connection.CreateAsync(new Post("Test title - 1", "Test body - 1"), transaction);
+            await connection.CreateAsync(new Comment(postId, "Test name - 1", "Test email - 1", "Test body - 1"), transaction);
+            await connection.CreateAsync(new Comment(postId, "Test name - 2", "Test email - 2", "Test body - 2"), transaction);
+            await connection.CreateAsync(new Comment(postId, "Test name - 3", "Test email - 3", "Test body - 3"), transaction);
             transaction.Commit();
         }
         catch (Exception ex)
@@ -51,16 +44,17 @@ public partial class DapperExtensions
     }
 
     [Fact]
-    public void Read_ById()
+    public async Task ReadAsync_ById()
     {
         using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
-            Post? post = connection.Read<Post>(20).FirstOrDefault();
+            var posts = await connection.ReadAsync<Post>(14);
+            Post? post = posts.FirstOrDefault();
             if (post != null)
             {
-                post.Comments = connection.Read<Comment>(whereClause: $"post_id = '{post.Id}'");
+                post.Comments = await connection.ReadAsync<Comment>(whereClause: $"post_id = '{post.Id}'");
             }
         }
         catch (Exception ex)
@@ -71,17 +65,18 @@ public partial class DapperExtensions
     }
 
     [Fact]
-    public void Read_ByWhereClause()
+    public async Task ReadAsync_ByWhereClause()
     {
         using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
-            List<Post> posts = connection.Read<Post>(whereClause: $"title like '%Test title%'");
+            List<Post> posts = await connection.ReadAsync<Post>(whereClause: $"title like '%Test title%'");
             foreach (Post post in posts)
             {
-                post.Comments = connection.Read<Comment>(whereClause: $"post_id = '{post.Id}'");
+                post.Comments = await connection.ReadAsync<Comment>(whereClause: $"post_id = '{post.Id}'");
             }
+            Assert.NotNull(posts);
         }
         catch (Exception ex)
         {
@@ -91,17 +86,18 @@ public partial class DapperExtensions
     }
 
     [Fact]
-    public void Update_ById()
+    public async Task UpdateAsync_ById()
     {
         using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
-            Post? post = connection.Read<Post>(21).FirstOrDefault();
+            var posts = await connection.ReadAsync<Post>(1000001591);
+            Post? post = posts.FirstOrDefault();
             if (post != null)
             {
                 post.Title = "Updated Test Title";
-                connection.Update(post); // Update By Id
+                await connection.UpdateAsync(post); // Update By Id
             }
         }
         catch (Exception ex)
@@ -112,18 +108,19 @@ public partial class DapperExtensions
     }
 
     [Fact]
-    public void Update_ByWhereClause()
+    public async Task UpdateAsync_ByWhereClause()
     {
         using var connection = new SqlConnection(ConnectionString);
         connection.Open();
         try
         {
-            Post? post = connection.Read<Post>(3).FirstOrDefault();
+            var posts = await connection.ReadAsync<Post>(22);
+            Post? post = posts.FirstOrDefault();
             if (post != null)
             {
                 post.Title = "Updated Test Title";
                 post.Body = null;
-                connection.Update(post, true, $"id = '{post.Id}'"); // Update By WhereClause
+                await connection.UpdateAsync(post, true, $"id = '{post.Id}'"); // Update By WhereClause
             }
         }
         catch (Exception ex)
@@ -134,13 +131,13 @@ public partial class DapperExtensions
     }
 
     [Fact]
-    public void Delete_ById()
+    public async void DeleteAsync_ById()
     {
         using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
-            connection.Delete<Post>(23); // dynamic id = '1000001633'
+            await connection.DeleteAsync<Post>(6); // dynamic id = '1000001633'
         }
         catch (Exception ex)
         {
@@ -150,13 +147,13 @@ public partial class DapperExtensions
     }
 
     [Fact]
-    public void Delete_ByWhereClause()
+    public async Task DeleteAsync_ByWhereClause()
     {
         using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
+        await connection.OpenAsync();
         try
         {
-            connection.Delete<Post>(whereClause: "id = '3'"); // Delete By WhereClause
+            await connection.DeleteAsync<Post>(whereClause: "id = '24'"); // Delete By WhereClause
         }
         catch (Exception ex)
         {
