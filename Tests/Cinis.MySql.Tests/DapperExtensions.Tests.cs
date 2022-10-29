@@ -49,4 +49,47 @@ public partial class DapperExtensions
             throw;
         }
     }
+
+    [Fact]
+    public void Read_ById()
+    {
+        using var connection = new MySqlConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            Post? post = connection.Read<Post>(1).FirstOrDefault();
+            if (post != null)
+            {
+                post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'");
+            }
+            Assert.NotNull(post);
+            Assert.NotNull(post?.Comments);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
+
+    [Fact]
+    public void Read_ByWhereClause()
+    {
+        using var connection = new MySqlConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            List<Post> posts = connection.Read<Post>(whereClause: $"TITLE LIKE '%Test title%'");
+            foreach (Post post in posts)
+            {
+                post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'");
+            }
+            Assert.NotNull(posts);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }
