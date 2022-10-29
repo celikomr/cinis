@@ -60,7 +60,7 @@ public partial class DapperExtensions
             Post? post = connection.Read<Post>(20).FirstOrDefault();
             if (post != null)
             {
-                post.Comments = connection.Read<Comment>(whereClause: $"post_id = '{post.Id}'");
+                post.Comments = connection.Read<Comment>(whereClause: $"PostId = '{post.Id}'");
             }
         }
         catch (Exception ex)
@@ -77,10 +77,10 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            List<Post> posts = connection.Read<Post>(whereClause: $"title like '%Test title%'");
+            List<Post> posts = connection.Read<Post>(whereClause: $"Title like '%Test title%'");
             foreach (Post post in posts)
             {
-                post.Comments = connection.Read<Comment>(whereClause: $"post_id = '{post.Id}'");
+                post.Comments = connection.Read<Comment>(whereClause: $"PostId = '{post.Id}'");
             }
         }
         catch (Exception ex)
@@ -118,12 +118,12 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            Post? post = connection.Read<Post>(3).FirstOrDefault();
+            Post? post = connection.Read<Post>(2).FirstOrDefault();
             if (post != null)
             {
                 post.Title = "Updated Test Title";
                 post.Body = null;
-                connection.Update(post, true, $"id = '{post.Id}'"); // Update By WhereClause
+                connection.Update(post, true, $"Id = '{post.Id}'"); // Update By WhereClause
             }
         }
         catch (Exception ex)
@@ -156,7 +156,7 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            connection.Delete<Post>(whereClause: "id = '3'"); // Delete By WhereClause
+            connection.Delete<Post>(whereClause: "Id = '3'"); // Delete By WhereClause
         }
         catch (Exception ex)
         {

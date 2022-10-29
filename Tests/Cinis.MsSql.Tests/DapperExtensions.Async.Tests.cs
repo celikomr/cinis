@@ -54,7 +54,7 @@ public partial class DapperExtensions
             Post? post = posts.FirstOrDefault();
             if (post != null)
             {
-                post.Comments = await connection.ReadAsync<Comment>(whereClause: $"post_id = '{post.Id}'");
+                post.Comments = await connection.ReadAsync<Comment>(whereClause: $"PostId = '{post.Id}'");
             }
         }
         catch (Exception ex)
@@ -71,10 +71,10 @@ public partial class DapperExtensions
         await connection.OpenAsync();
         try
         {
-            List<Post> posts = await connection.ReadAsync<Post>(whereClause: $"title like '%Test title%'");
+            List<Post> posts = await connection.ReadAsync<Post>(whereClause: $"Title like '%Test title%'");
             foreach (Post post in posts)
             {
-                post.Comments = await connection.ReadAsync<Comment>(whereClause: $"post_id = '{post.Id}'");
+                post.Comments = await connection.ReadAsync<Comment>(whereClause: $"PostId = '{post.Id}'");
             }
             Assert.NotNull(posts);
         }
@@ -114,13 +114,13 @@ public partial class DapperExtensions
         connection.Open();
         try
         {
-            var posts = await connection.ReadAsync<Post>(22);
+            var posts = await connection.ReadAsync<Post>(2);
             Post? post = posts.FirstOrDefault();
             if (post != null)
             {
                 post.Title = "Updated Test Title";
                 post.Body = null;
-                await connection.UpdateAsync(post, true, $"id = '{post.Id}'"); // Update By WhereClause
+                await connection.UpdateAsync(post, true, $"Id = '{post.Id}'"); // Update By WhereClause
             }
         }
         catch (Exception ex)
@@ -153,7 +153,7 @@ public partial class DapperExtensions
         await connection.OpenAsync();
         try
         {
-            await connection.DeleteAsync<Post>(whereClause: "id = '24'"); // Delete By WhereClause
+            await connection.DeleteAsync<Post>(whereClause: "Id = '24'"); // Delete By WhereClause
         }
         catch (Exception ex)
         {
