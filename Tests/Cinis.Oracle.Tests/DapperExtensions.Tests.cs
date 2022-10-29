@@ -135,4 +135,24 @@ public partial class DapperExtensions
             throw;
         }
     }
+
+    [Fact]
+    public void Delete_ById()
+    {
+        using var connection = new OracleConnection(ConnectionString);
+        connection.Open();
+        try
+        {
+            Post? post = connection.Read<Post>(1000001633).FirstOrDefault();
+            if (post != null)
+            {
+                connection.Delete(post);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }

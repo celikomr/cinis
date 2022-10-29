@@ -120,7 +120,7 @@ public static partial class DapperExtensions
         return result;
     }
 
-    public static dynamic Delete<T>(this OracleConnection connection, string? whereClause = null, OracleTransaction? transaction = null)
+    public static dynamic Delete<T>(this OracleConnection connection, dynamic? id = null, string? whereClause = null, OracleTransaction? transaction = null)
     {
         if (connection is null)
         {
@@ -128,16 +128,20 @@ public static partial class DapperExtensions
         }
 
         string sql;
-        if (string.IsNullOrEmpty(whereClause))
+        if (id != null)
         {
-            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()}";
+            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = '{id}'";
         }
-        else
+        else if (!string.IsNullOrEmpty(whereClause))
         {
             sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()} where {whereClause}";
         }
+        else
+        {
+            sql = $"delete from {GetTableSchema<T>()}.{GetTableName<T>()}";
+        }
 
-        var result = connection.Execute(sql, null, transaction);
+        var result = connection.Execute(sql, transaction: transaction);
         return result;
     }
 }
