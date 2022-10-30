@@ -1,1 +1,1 @@
-# Cinis.MySql
+Dapper(MySql) extensions for .Net projects

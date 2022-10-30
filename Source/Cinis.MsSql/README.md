@@ -1,1 +1,1 @@
-# Cinis.MsSql
+Dapper(MsSql) extensions for .Net projects
