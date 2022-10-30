@@ -4,10 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.0-beta.1</Version>
+    <Version>1.0.0-beta.2</Version>
     <Description>Dapper(Oracle) extensions for .Net projects</Description>
     <RepositoryUrl>https://github.com/RepomineLabs/Cinis</RepositoryUrl>
-    <PackageTags>dapper;extensions;dotnet</PackageTags>
+    <PackageTags>dotnet;dapper;extensions</PackageTags>
     <PackAsTool>False</PackAsTool>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -15,6 +15,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IncludeSymbols>False</IncludeSymbols>
     <Copyright>Copyright (c) 2022-present, Ömer Çelik</Copyright>
+    <Authors>Ömer Çelik</Authors>
+    <Company>RepomineLabs</Company>
   </PropertyGroup>
 
   <ItemGroup>

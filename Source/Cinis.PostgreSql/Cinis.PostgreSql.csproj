@@ -5,15 +5,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>Cinis.PostgreSql</Title>
-    <Version>1.0.0-beta.1</Version>
+    <Version>1.0.0-beta.2</Version>
     <Authors>Ömer Çelik</Authors>
     <Company>RepomineLabs</Company>
     <Description>Dapper(PostgreSql) extensions for .Net projects</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/RepomineLabs/Cinis</RepositoryUrl>
-    <PackageTags>dotnet;extensions;dapper</PackageTags>
+    <PackageTags>dotnet;dapper;extensions</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright (c) 2022-present, Ömer Çelik</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
