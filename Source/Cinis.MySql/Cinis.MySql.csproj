@@ -4,11 +4,27 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Cinis.MySql</Title>
+    <Version>1.0.0-beta.1</Version>
+    <Authors>Ömer çelik</Authors>
+    <Company>RepomineLabs</Company>
+    <Description>Dapper(MySql) extensions for .Net projects</Description>
+    <Copyright>Copyright (c) 2022-present, Ömer Çelik</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/RepomineLabs/Cinis</RepositoryUrl>
+    <PackageTags>dotnet;dapper;extensions</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="MySql.Data" Version="8.0.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
