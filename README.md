@@ -5,16 +5,16 @@ Dapper extension for .Net projects
 ## Modules
 
 - [ ] [Cinis.MsSql](Source/Cinis.MsSql)
-- [ ] [Cinis.MySql](Source/Cinis.MySql)
-- [ ] [Cinis.Oracle](Source/Cinis.Oracle)
-- [ ] [Cinis.PostgreSql](Source/Cinis.PostgreSql)
+- [x] [Cinis.MySql](Source/Cinis.MySql)
+- [x] [Cinis.Oracle](Source/Cinis.Oracle)
+- [x] [Cinis.PostgreSql](Source/Cinis.PostgreSql)
 
 ## Features
 
-- [ ] ```Create``` · ```CreateAsync```
-- [ ] ```Read``` · ```ReadAsync```
-- [ ] ```Update``` · ```UpdateAsync```
-- [ ] ```Delete``` · ```DeleteAsync```
+- [x] ```Create``` · ```CreateAsync```
+- [x] ```Read``` · ```ReadAsync```
+- [x] ```Update``` · ```UpdateAsync```
+- [x] ```Delete``` · ```DeleteAsync```
 
 ## Contributing
 
