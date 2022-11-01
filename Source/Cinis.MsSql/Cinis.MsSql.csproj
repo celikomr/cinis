@@ -4,11 +4,29 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Cinis.MsSql</Title>
+    <Version>1.0.0-beta.1</Version>
+    <Company>RepomineLabs</Company>
+    <Authors>Ömer Çelik</Authors>
+    <Description>Dapper(MsSql) extensions for .Net projects</Description>
+    <Copyright>Copyright (c) 2022-present, Ömer Çelik</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/RepomineLabs/Cinis</RepositoryUrl>
+    <PackageTags>dotnet;dapper;extensions</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
