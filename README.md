@@ -4,7 +4,7 @@ Dapper extension for .Net projects
 
 | Modules          | Versions                                                  | Downloads                                                  |
 |------------------|-----------------------------------------------------------|------------------------------------------------------------|
-| [Cinis.MsSql](./Source/Cinis.MsSql)      |                                                           |                                                            |
+| [Cinis.MsSql](./Source/Cinis.MsSql)      | ![Nuget](https://img.shields.io/nuget/v/Cinis.MsSql)                                                          |                                                            |
 | [Cinis.MySql](./Source/Cinis.MySql)      | ![Nuget](https://img.shields.io/nuget/v/Cinis.MySql)      | ![Nuget](https://img.shields.io/nuget/dt/Cinis.MySql)      |
 | [Cinis.Oracle](./Source/Cinis.Oracle)     | ![Nuget](https://img.shields.io/nuget/v/Cinis.Oracle)     | ![Nuget](https://img.shields.io/nuget/dt/Cinis.Oracle)     |
 | [Cinis.PostgreSql](./Source/Cinis.PostgreSql) | ![Nuget](https://img.shields.io/nuget/v/Cinis.PostgreSql) | ![Nuget](https://img.shields.io/nuget/dt/Cinis.PostgreSql) |
