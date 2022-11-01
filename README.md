@@ -2,12 +2,12 @@
 
 Dapper extension for .Net projects
 
-| Modules          | Versions                                                  | Downloads                                                  |
-|------------------|-----------------------------------------------------------|------------------------------------------------------------|
-| [Cinis.MsSql](./Source/Cinis.MsSql)      |                                                           |                                                            |
-| [Cinis.MySql](./Source/Cinis.MySql)      | ![Nuget](https://img.shields.io/nuget/v/Cinis.MySql)      | ![Nuget](https://img.shields.io/nuget/dt/Cinis.MySql)      |
-| [Cinis.Oracle](./Source/Cinis.Oracle)     | ![Nuget](https://img.shields.io/nuget/v/Cinis.Oracle)     | ![Nuget](https://img.shields.io/nuget/dt/Cinis.Oracle)     |
-| [Cinis.PostgreSql](./Source/Cinis.PostgreSql) | ![Nuget](https://img.shields.io/nuget/v/Cinis.PostgreSql) | ![Nuget](https://img.shields.io/nuget/dt/Cinis.PostgreSql) |
+| Modules          | Versions                                                                        | Downloads                                                  |
+|------------------|---------------------------------------------------------------------------------|------------------------------------------------------------|
+| Cinis.MsSql      | ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Cinis.MsSql)      | ![Nuget](https://img.shields.io/nuget/dt/Cinis.MsSql)      |
+| Cinis.MySql      | ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Cinis.MySql)      | ![Nuget](https://img.shields.io/nuget/dt/Cinis.MySql)      |
+| Cinis.Oracle     | ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Cinis.Oracle)     | ![Nuget](https://img.shields.io/nuget/dt/Cinis.Oracle)     |
+| Cinis.PostgreSql | ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Cinis.PostgreSql) | ![Nuget](https://img.shields.io/nuget/dt/Cinis.PostgreSql) |
 
 ## Features
 
