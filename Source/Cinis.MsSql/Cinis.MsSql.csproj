@@ -5,14 +5,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>Cinis.MsSql</Title>
-    <Version>1.0.0-beta.1</Version>
+    <Version>1.0.0</Version>
     <Company>RepomineLabs</Company>
     <Authors>Ömer Çelik</Authors>
     <Description>Dapper(MsSql) extensions for .Net projects</Description>
     <Copyright>Copyright (c) 2022-present, Ömer Çelik</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/RepomineLabs/Cinis</RepositoryUrl>
-    <PackageTags>dotnet;dapper;extensions</PackageTags>
+    <PackageTags>dotnet;dapper;mssql;extensions</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
