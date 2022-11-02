@@ -58,18 +58,18 @@ public static partial class DapperExtensions
         string stringOfSets;
         if (nullable)
         {
-            stringOfSets = string.Join(", ", GetProperties<T>().Where(e => e.GetCustomAttribute<ColumnAttribute>() != null).Select(e => $"{e?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{e?.Name}"));
+            stringOfSets = string.Join(", ", GetProperties<T>().Where(e => e?.GetCustomAttribute<ColumnAttribute>() != null && e?.GetCustomAttribute<ColumnAttribute>()?.Name != GetPrimaryKey<T>()?.Name).Select(e => $"{e?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{e?.Name}"));
         }
         else
         {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
             string[] propertyNames = entity.GetType().GetProperties()
-                                           .Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x.GetValue(entity) != null)
-                                           .Select(x => x.GetCustomAttribute<ColumnAttribute>().Name).ToArray();
+                                           .Where(x => x?.GetCustomAttribute<ColumnAttribute>() != null && x?.GetCustomAttribute<ColumnAttribute>()?.Name != GetPrimaryKey<T>()?.Name && x?.GetValue(entity) != null)
+                                           .Select(x => x?.GetCustomAttribute<ColumnAttribute>().Name).ToArray();
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-            stringOfSets = string.Join(" , ", propertyNames.Select(propertyName => propertyName + " = @" + entity.GetType().GetProperties().Where(x => x.GetCustomAttribute<ColumnAttribute>() != null && x?.GetCustomAttribute<ColumnAttribute>()?.Name == propertyName).Select(e => e.Name).FirstOrDefault()));
+            stringOfSets = string.Join(" , ", propertyNames.Select(propertyName => propertyName + " = @" + entity.GetType().GetProperties().Where(x => x?.GetCustomAttribute<ColumnAttribute>() != null && x?.GetCustomAttribute<ColumnAttribute>()?.Name == propertyName).Select(e => e?.Name).FirstOrDefault()));
         }
 
         string sql;
