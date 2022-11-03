@@ -87,8 +87,8 @@ public class Comment
 ### Create & CreateAsync
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
-                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521))" +
+        "(CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
@@ -108,8 +108,8 @@ catch (Exception ex)
 ### Read & ReadAsync (By Id & By WhereClause)
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
-                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521))" +
+        "(CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
@@ -135,8 +135,8 @@ catch (Exception ex)
 ### Update & UpdateAsync (By Id & By WhereClause)
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
-                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521))" +
+        "(CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
@@ -169,8 +169,8 @@ catch (Exception ex)
 ### Delete & DeleteAsync (By Id & By WhereClause)
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
-                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521))" +
+        "(CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
