@@ -1,6 +1,6 @@
 ﻿# Cinis
 
-Dapper extension for .Net projects
+Dapper extensions for .Net projects
 
 | Modules          | Versions                                                                        | Downloads                                                  |
 |------------------|---------------------------------------------------------------------------------|------------------------------------------------------------|
