@@ -7,6 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="PostgreSql\README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+    <None Update="MsSql\README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+    <None Update="MySql\README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+    <None Update="Oracle\README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
     <None Update="README.md">
       <PackagePath>\</PackagePath>
       <Pack>True</Pack>
