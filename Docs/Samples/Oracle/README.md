@@ -189,3 +189,50 @@ catch (Exception ex)
     throw;
 }
 ```
+
+## Advanced Usages
+
+### CRUD Sample With Transaction
+
+```cs
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521))" +
+        "(CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+
+using var connection = new OracleConnection(connectionString);
+connection.Open();
+// connection.OpenAsync(); // For Async Usage
+using OracleTransaction transaction = connection.BeginTransaction();
+try
+{
+    // Read Operation(s)
+    Post? post = connection.Read<Post>(<key>, transaction: transaction).FirstOrDefault(); 
+    // var posts = await connection.ReadAsync<Post>(<key>, transaction: transaction); // For Async Usage
+    // Post? post = posts.FirstOrDefault(); // For Async Usage
+
+    // Update Operation(s)
+    post.Title = "Updated Test Title";
+    connection.Update(post);
+    // await connection.UpdateAsync(post, transaction: transaction); // For Async Usage
+
+    // Delete Operation(s)
+    foreach (Comment comment in post.Comments)
+    {
+        connection.Delete<Comment>(comment.Id, transaction: transaction);
+        // await connection.DeleteAsync<Comment>(comment.Id, transaction: transaction); // For Async Usage
+    }
+
+    // Create Operation(s)
+    int postId = connection.Create(new Post("Test title - 1", "Test body - 1"), transaction);
+    connection.Create(new Comment(postId, "Test name - 1", "Test email - 1", "Test body - 1"), transaction);
+    connection.Create(new Comment(postId, "Test name - 2", "Test email - 2", "Test body - 2"), transaction);
+    connection.Create(new Comment(postId, "Test name - 3", "Test email - 3", "Test body - 3"), transaction);
+
+    transaction.Commit();
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.ToString());
+    transaction.Rollback();
+    throw;
+}
+```
