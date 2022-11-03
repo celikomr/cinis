@@ -1,5 +1,11 @@
 # Cinis.Oracle Samples
 
+Are you ready to take the Dapper implementation to the next level? :rocket:
+
+Database operations are now very easy with Cinis.Oracle. You will get rid of the cost of writing sql.
+
+Cinis.Oracle not only produces readable code blocks, but also speeds up your development.
+
 ## Entities
 
 ```cs
@@ -78,16 +84,19 @@ public class Comment
 
 ## Basics
 
-### Create
+### Create & CreateAsync
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
+                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
+// connection.OpenAsync(); // For Async Usage
 try
 {
     int postId = connection.Create(new Post("Test title", "Test body"));
+    // int postId = await connection.CreateAsync(new Post("Test title", "Test body")); // For Async Usage
 }
 catch (Exception ex)
 {
@@ -96,19 +105,24 @@ catch (Exception ex)
 }
 ```
 
-### Read (By Id & By WhereClause)
+### Read & ReadAsync (By Id & By WhereClause)
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
+                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
+// connection.OpenAsync(); // For Async Usage
 try
 {
-    Post? post = connection.Read<Post>(1000001541).FirstOrDefault(); // Read By Id Usage
+    Post? post = connection.Read<Post>(<key>).FirstOrDefault(); // Read By Id
+    // var posts = await connection.ReadAsync<Post>(<key>); // For Async Usage
+    // Post? post = posts.FirstOrDefault(); // For Async Usage
     if (post != null)
     {
-        post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'"); // By WhereClause Usage
+        post.Comments = connection.Read<Comment>(whereClause: $"POST_ID = '{post.Id}'"); // By WhereClause
+        // post.Comments = await connection.ReadAsync<Comment>(whereClause: $"POST_ID = '{post.Id}'"); // For Async Usage
     }
 }
 catch (Exception ex)
@@ -118,16 +132,20 @@ catch (Exception ex)
 }
 ```
 
-### Update (By Id & By WhereClause)
+### Update & UpdateAsync (By Id & By WhereClause)
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
+                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
+// connection.OpenAsync(); // For Async Usage
 try
 {
     Post? post = connection.Read<Post>(<key>).FirstOrDefault();
+    // var posts = await connection.ReadAsync<Post>(<key>); // For Async Usage
+    // Post? post = posts.FirstOrDefault(); // For Async Usage
     if (post != null)
     {
         post.Title = "Updated Test Title";
@@ -135,6 +153,10 @@ try
         // connection.Update(post, true); // Update By Id (nullable = true)
         // connection.Update(post, whereClause: $"ID = '{post.Id}'"); // Update By WhereClause (nullable = false)
         // connection.Update(post, true, $"ID = '{post.Id}'"); // Update By WhereClause (nullable = true)
+
+        // await connection.UpdateAsync(post, true); // For Async Usage
+        // await connection.UpdateAsync(post, whereClause: $"ID = '{post.Id}'"); // For Async Usage
+        // await connection.UpdateAsync(post, true, $"ID = '{post.Id}'"); // For Async Usage
     }
 }
 catch (Exception ex)
@@ -144,17 +166,22 @@ catch (Exception ex)
 }
 ```
 
-### Delete (By Id & By WhereClause)
+### Delete & DeleteAsync (By Id & By WhereClause)
 
 ```cs
-string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
+string connectionString = "Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <host>)(PORT = 1521)) +
+                (CONNECT_DATA =(SERVICE_NAME = <service_name>) (SERVER = DEDICATED) ) ); User ID = <username>; Password = <password>;";
 
 using var connection = new OracleConnection(connectionString);
 connection.Open();
+// connection.OpenAsync(); // For Async Usage
 try
 {
-    connection.Delete<Post>(<key>); // Delete By Id - <key> is dynammic
+    connection.Delete<Post>(<key>); // Delete By Id - <key> is dynamic
     // connection.Delete<Post>(whereClause: $"ID = '{<key>}'"); // Delete By WhereClause
+
+    // await connection.DeleteAsync<Post>(<key>); // For Async Usage
+    // await connection.DeleteAsync<Post>(whereClause: $"ID = '{<key>}'"); // For Async Usage
 }
 catch (Exception ex)
 {
