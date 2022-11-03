@@ -1,10 +1,8 @@
 # Cinis.Oracle Samples
 
-Are you ready to take the Dapper implementation to the next level? :rocket:
+Many examples for Dapper Oracle database operations are discussed below.
 
-Database operations are now very easy with Cinis.Oracle. You will get rid of the cost of writing sql.
-
-Cinis.Oracle not only produces readable code blocks, but also speeds up your development.
+You can send your questions and suggestions by opening an issue or by writing from the Discussions tab.
 
 ## Entities
 
