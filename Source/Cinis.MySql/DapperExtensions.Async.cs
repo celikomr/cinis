@@ -74,13 +74,17 @@ public static partial class DapperExtensions
         }
 
         string sql;
-        if (!string.IsNullOrEmpty(whereClause))
+        if (!string.IsNullOrEmpty(whereClause) && !string.IsNullOrEmpty(stringOfSets))
         {
             sql = $"update {GetTableSchema<T>()}{GetTableName<T>()} set {stringOfSets} where {whereClause}";
         }
-        else
+        else if (!string.IsNullOrEmpty(stringOfSets))
         {
             sql = $"update {GetTableSchema<T>()}{GetTableName<T>()} set {stringOfSets} where {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name} = @{GetPrimaryKey<T>()?.Name}";
+        }
+        else
+        {
+            return 0;
         }
 
         var result = await connection.ExecuteAsync(sql, entity, transaction);
