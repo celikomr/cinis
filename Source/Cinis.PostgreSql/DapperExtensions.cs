@@ -49,7 +49,7 @@ public static partial class DapperExtensions
 
         var stringOfColumns = string.Join(", ", GetColumns<T>());
         var stringOfParameters = string.Join(", ", GetColumnPropertyNames<T>().Select(e => "@" + e));
-        var sql = $"insert into {GetTableSchema<T>()}{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}) returning {GetPrimaryKey<T>()?.Name}";
+        var sql = $"insert into {GetTableSchema<T>()}{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}) returning {GetPrimaryKey<T>()?.GetCustomAttribute<ColumnAttribute>()?.Name}";
 
         var result = connection.ExecuteScalar(sql, entity, transaction);
         return result;
