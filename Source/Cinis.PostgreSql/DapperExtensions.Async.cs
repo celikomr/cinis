@@ -14,7 +14,9 @@ public static partial class DapperExtensions
         {
             throw new ArgumentNullException(nameof(connection));
         }
-        
+
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
+
         var stringOfColumns = string.Join(", ", GetColumns<T>());
         var stringOfParameters = string.Join(", ", GetColumnPropertyNames<T>().Select(e => "@" + e));
         var sql = $"insert into {GetTableSchema<T>()}{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}) returning {GetPrimaryKey<T>()?.Name}";
