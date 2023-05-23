@@ -15,6 +15,8 @@ public static partial class DapperExtensions
             throw new ArgumentNullException(nameof(connection));
         }
 
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
+
         var stringOfColumns = string.Join(", ", GetColumns<T>());
         var stringOfParameters = string.Join(", ", GetColumnPropertyNames<T>().Select(e => ":" + e));
         var sql = $"insert into {GetTableSchema<T>()}{GetTableName<T>()} ({stringOfColumns}) values ({stringOfParameters}) returning {GetPrimaryKey<T>()?.Name} into :lastcid";
@@ -22,7 +24,7 @@ public static partial class DapperExtensions
         DynamicParameters parameters = new(entity);
         parameters.Add(name: "lastcid", dbType: dbType, direction: ParameterDirection.Output);
 
-        var result = await connection.ExecuteAsync(sql, parameters, transaction);
+        var result = await connection.ExecuteScalarAsync(sql, parameters, transaction);
         return parameters.Get<dynamic>("lastcid");
     }
 
