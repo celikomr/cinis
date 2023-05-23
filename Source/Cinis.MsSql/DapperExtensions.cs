@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Dapper;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.SqlClient;
-using Dapper;
+using System.Reflection;
 
 namespace Cinis.MsSql;
 

@@ -7,7 +7,7 @@ namespace Cinis.MySql;
 
 public static partial class DapperExtensions
 {
-	public static async Task<dynamic> CreateAsync<T>(this MySqlConnection connection, T entity, MySqlTransaction? transaction = null)
+    public static async Task<dynamic> CreateAsync<T>(this MySqlConnection connection, T entity, MySqlTransaction? transaction = null)
     {
         if (connection is null)
         {
@@ -23,8 +23,8 @@ public static partial class DapperExtensions
         var result = await connection.ExecuteScalarAsync(sql, entity, transaction);
         return result;
     }
-	
-	public static async Task<List<T>> ReadAsync<T>(this MySqlConnection connection, dynamic? id = null, string? whereClause = null, MySqlTransaction? transaction = null)
+
+    public static async Task<List<T>> ReadAsync<T>(this MySqlConnection connection, dynamic? id = null, string? whereClause = null, MySqlTransaction? transaction = null)
     {
         if (connection is null)
         {

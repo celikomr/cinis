@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using Dapper;
+﻿using Dapper;
 using Oracle.ManagedDataAccess.Client;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
+using System.Reflection;
 
 namespace Cinis.Oracle;
 

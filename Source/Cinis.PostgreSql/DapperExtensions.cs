@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using System.Data;
+﻿using Dapper;
 using Npgsql;
-using Dapper;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Reflection;
 
 namespace Cinis.PostgreSql;
 

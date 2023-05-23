@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
+﻿using Dapper;
 using MySql.Data.MySqlClient;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using Dapper;
+using System.Reflection;
 
 namespace Cinis.MySql;
 
